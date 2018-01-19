@@ -1,0 +1,97 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 26
+    defaultConfig {
+        javaCompileOptions {
+            annotationProcessorOptions {
+                includeCompileClasspath = true
+            }
+        }
+
+        applicationId "com.example.administrator.kotlindemo1"
+        minSdkVersion 21
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+//    13.6.2 添加 Kotlin 源代码目录
+//
+//    首先，我们在 src/main/下面新建一个 kotlin 目录，
+//    来存放 Kotlin源码。然后在 build.gradle 文件里的
+//    android {} 配置里面添加Java的编译路径：
+
+    sourceSets {
+        // += , 在main中创建kotlin文件夹，用于存放kotlin代码
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+
+    compile 'com.android.support:design:26.1.0'
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0-beta4'
+
+    // Anko
+    compile 'org.jetbrains.anko:anko-sdk15:0.8.2' // sdk19, sdk21, sdk23 are also available
+    compile 'org.jetbrains.anko:anko-support-v4:0.8.2' // In case you need support-v4 bindings
+    compile 'org.jetbrains.anko:anko-appcompat-v7:0.8.2' // For appcompat-v7 bindings
+
+//    13.6.4 Realm依赖
+    compile 'io.realm:realm-android:0.87.1'
+    compile 'com.github.thorbenprimke:realm-recyclerview:0.9.12' // 在jitpack.io上
+
+    // kotlin使用realm的注解处理依赖库
+    kapt "io.realm:realm-annotations:0.87.1"
+    kapt "io.realm:realm-annotations-processor:0.87.1"
+
+    // Butter Knife，专门为Android View设计的绑定注解，专业解决各种findViewById
+//    compile 'com.jakewharton:butterknife:8.7.0'
+//    annotationProcessor 'com.jakewharton:butterknife-compiler:8.7.0'
+
+    compile 'com.jakewharton:butterknife:8.7.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.7.0'
+    kapt 'com.jakewharton:butterknife-compiler:8.7.0'
+
+
+    compile 'com.squareup.okhttp3:okhttp:3.8.1'
+
+
+    compile 'io.reactivex.rxjava2:rxjava:2.1.1'
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+
+      // rx
+//    def rxjavaVersion = "2.1.0"
+//    def rxandroidVersion = "2.0.1"
+//    rx = [
+//            rxjava2: "io.reactivex.rxjava2:rxjava:$rxjavaVersion",
+//            rxandroid2: "io.reactivex.rxjava2:rxandroid:$rxandroidVersion",
+//            rxlifecycle: "com.trello.rxlifecycle2:rxlifecycle:$rxjavaVersion",
+//            rxlifecycle_android: "com.trello.rxlifecycle2:rxlifecycle-android:$rxjavaVersion",
+//            rxlifecycle_components: "com.trello.rxlifecycle2:rxlifecycle-components:$rxjavaVersion",
+//
+//            rxpermissions: 'com.tbruyelle.rxpermissions:rxpermissions:0.9.4@aar'
+//    ]
+
+}
